@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRODBYR4UL // UNDERGROUND TRAP ARCHITECTURE & AUDIO LAB</title>
+  <meta name="description" content="Official portfolio & sound vault for PRODBYR4UL. Underground trap producer, audio mix & master engineer, and visualizer director.">
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Google Fonts: Syne & Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            carbon: '#050505',
+            carbonElevated: '#0a0a0a',
+            surface: '#121212',
+            surfaceLight: '#18181b',
+            bone: '#f4f4f5',
+            zincMuted: '#71717a',
+            zincDark: '#27272a',
+            hairline: 'rgba(255, 255, 255, 0.08)',
+            hairlineActive: 'rgba(255, 255, 255, 0.22)'
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'Syne', 'sans-serif'],
+            display: ['Syne', 'Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Strict Brutalist Design Architecture */
+    * {
+      border-radius: 0 !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Exception for crisp circular brandmark in header */
+    .circular-brandmark,
+    .circular-brandmark img {
+      border-radius: 9999px !important;
+    }
+
+    body {
+      background-color: #050505;
+      color: #f4f4f5;
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    /* Subtle Architectural Grain Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      content: "";
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Architectural Viewfinder Crosshairs and Corners */
+    .hud-box {
+      position: relative;
+    }
+    .hud-box::before,
+    .hud-box::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .hud-box::before {
+      top: -1px;
+      left: -1px;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+    }
+    .hud-box::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 2px solid #ffffff;
+      border-right: 2px solid #ffffff;
+    }
+
+    /* Custom Hairline Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050505;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f4f4f5;
+    }
+
+    /* Monochromatic Inversion on Hover Utility */
+    .brutalist-btn {
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .brutalist-btn:hover {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+    }
+
+    /* Video Card Viewfinder Hud Overlay */
+    .vf-hud {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      pointer-events: none;
+      transition: border-color 0.2s ease;
+    }
+    .group:hover .vf-hud {
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    /* Architectural HUD corner markers */
+    .hud-corners {
+      position: absolute;
+      inset: 6px;
+      pointer-events: none;
+    }
+    .hud-corners::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      border-left: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .hud-corners::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 6px;
+      height: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      border-right: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    /* VU Meter Simulation */
+    .vu-bar {
+      height: 3px;
+      background-color: #27272a;
+      transition: width 0.2s ease;
+    }
+    .group:hover .vu-bar {
+      background-color: #ffffff;
+    }
+
+    /* Hero Inverted Contrast Logo Mode */
+    .logo-inverted {
+      filter: invert(1) contrast(1.25) brightness(1.05);
+    }
+    .logo-raw {
+      filter: contrast(1.2) brightness(1.1);
+    }
+  </style>
+</head>
+<body class="bg-carbon text-bone min-h-screen relative antialiased selection:bg-white selection:text-black">
+
+  <!-- Grain Overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- FIXED HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-carbon/90 backdrop-blur-md border-b border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand & Status [36px x 36px Crisp Circular Brandmark] -->
+      <a href="#" class="flex items-center gap-3.5 group text-bone hover:text-white transition-colors">
+        <div class="circular-brandmark relative w-[36px] h-[36px] border border-hairline overflow-hidden bg-black flex items-center justify-center flex-shrink-0">
+          <img src="logo.png" alt="PRODBYR4UL Brandmark" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+        </div>
+        <div class="flex flex-col">
+          <div class="font-display font-black text-lg tracking-wider text-bone group-hover:text-white leading-none">PRODBYR4UL</div>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="inline-block w-1.5 h-1.5 bg-white animate-pulse"></span>
+            <span class="text-[10px] tracking-wider text-zincMuted font-mono uppercase">[ONLINE // ACCEPTING COMMISSIONS]</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Anchors -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-xs font-mono">
+        <a href="#beats" class="px-3 py-2 text-zincMuted hover:text-black hover:bg-white brutalist-btn border border-transparent hover:border-white transition-all uppercase">
+          [01 // BEATS]
+        </a>
+        <a href="#visualizers" class="px-3 py-2 text-zincMuted hover:text-black hover:bg-white brutalist-btn border border-transparent hover:border-white transition-all uppercase">
+          [02 // VISUALIZERS]
+        </a>
+        <a href="#engineering" class="px-3 py-2 text-zincMuted hover:text-black hover:bg-white brutalist-btn border border-transparent hover:border-white transition-all uppercase">
+          [03 // MIX & MASTER]
+        </a>
+        <a href="#transmission" class="px-3 py-2 text-zincMuted hover:text-black hover:bg-white brutalist-btn border border-transparent hover:border-white transition-all uppercase">
+          [04 // CONTACT]
+        </a>
+      </nav>
+
+      <!-- Store Quick Trigger -->
+      <div class="hidden sm:flex items-center gap-2">
+        <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 text-xs font-mono font-bold bg-bone text-carbon hover:bg-white transition-colors border border-bone flex items-center gap-2">
+          <span>[AIRBIT STORE]</span>
+          <span class="text-[10px]">↗</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuToggle" class="md:hidden p-2 text-zincMuted hover:text-white border border-hairline text-xs font-mono uppercase">
+        [MENU]
+      </button>
+
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-hairline bg-carbonElevated px-4 py-4 space-y-2 text-xs font-mono">
+      <a href="#beats" class="block py-2.5 px-3 text-zincMuted hover:text-black hover:bg-white transition-colors uppercase border border-hairline">
+        [01 // BEAT VAULT]
+      </a>
+      <a href="#visualizers" class="block py-2.5 px-3 text-zincMuted hover:text-black hover:bg-white transition-colors uppercase border border-hairline">
+        [02 // VISUALIZER SHOWROOM]
+      </a>
+      <a href="#engineering" class="block py-2.5 px-3 text-zincMuted hover:text-black hover:bg-white transition-colors uppercase border border-hairline">
+        [03 // MIX & MASTER ENGINEERING]
+      </a>
+      <a href="#transmission" class="block py-2.5 px-3 text-zincMuted hover:text-black hover:bg-white transition-colors uppercase border border-hairline">
+        [04 // TRANSMISSION & CONTACT]
+      </a>
+      <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="block py-2.5 px-3 text-center bg-white text-black font-bold uppercase mt-4">
+        [AIRBIT BEAT STORE ↗]
+      </a>
+    </div>
+  </header>
+
+  <main class="pt-24 pb-20">
+
+    <!-- HERO SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24 border-b border-hairline">
+      
+      <!-- Top Section Coordinate Banner -->
+      <div class="flex flex-wrap items-center justify-between text-[11px] font-mono text-zincMuted pb-6 mb-8 border-b border-hairline/60">
+        <div class="flex items-center gap-2">
+          <span class="text-white">[+]</span>
+          <span>SYSTEM: ONLINE</span>
+          <span class="text-zincDark">//</span>
+          <span>LATENCY: 0MS</span>
+          <span class="text-zincDark">//</span>
+          <span>LOC: BUCHAREST // WORLDWIDE</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span>AUDIO ENGINE: 24-BIT // 48.0 KHZ</span>
+          <span class="text-zincDark">//</span>
+          <span class="text-bone">[BUILD: 2026.1]</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Column: Typography & Technical HUD Matrix -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-zincMuted uppercase tracking-widest mb-4">
+            <span class="w-2 h-2 bg-white"></span>
+            <span>OFFICIAL AUDIO & VISUAL MATRIX</span>
+          </div>
+
+          <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-display tracking-tight text-white uppercase leading-[0.9] mb-4">
+            PRODBY<br>
+            <span class="text-zincMuted hover:text-white transition-colors">R4UL</span>
+          </h1>
+
+          <div class="text-sm sm:text-base font-mono text-bone tracking-wide uppercase border-l-2 border-white pl-4 mb-8 py-1">
+            TRAP PRODUCER // MIX & MASTER // KINETIC VISUALIZERS
+          </div>
+
+          <!-- Technical HUD Block -->
+          <div class="bg-carbonElevated border border-hairline p-5 sm:p-6 mb-8 font-mono space-y-3 relative hud-box">
+            <div class="text-[10px] text-zincMuted tracking-wider uppercase border-b border-hairline pb-2 flex justify-between">
+              <span>[SYSTEM SPECIFICATIONS // AUDIO TARGETS]</span>
+              <span>[REV 4.0]</span>
+            </div>
+            <div class="space-y-2 text-xs sm:text-[13px] text-bone">
+              <div class="flex items-start gap-2.5">
+                <span class="text-zincMuted select-none">></span>
+                <span class="font-medium text-white">[OUTPUT: DISTORTED 808s, SHREDDED TRANSIENTS, COLD MELODIES]</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="text-zincMuted select-none">></span>
+                <span class="font-medium text-white">[STANDARDS: CLUB-READY DYNAMICS, ZERO UNINTENDED CLIPPING]</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="text-zincMuted select-none">></span>
+                <span class="font-medium text-white">[STORE: AIRBIT VERIFIED PRODUCER]</span>
+              </div>
+            </div>
+            <div class="pt-2 text-[10px] text-zincMuted font-mono flex items-center justify-between border-t border-hairline mt-3">
+              <span>AFFILIATION: UNDERGROUND TRAP CIRCLE</span>
+              <span>STATUS: DISPATCH READY</span>
+            </div>
+          </div>
+
+          <!-- Action Triggers -->
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#beats" class="px-6 py-3.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-bone transition-all flex items-center gap-2 border border-white">
+              <span>[EXPLORE BEATS]</span>
+              <span>↓</span>
+            </a>
+            <a href="#visualizers" class="px-6 py-3.5 bg-transparent text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all border border-hairline hover:border-white flex items-center gap-2">
+              <span>[WATCH VISUALIZERS]</span>
+              <span>▶</span>
+            </a>
+            <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-carbonElevated text-zincMuted hover:text-white font-mono text-xs uppercase tracking-wider transition-all border border-hairline hover:border-hairlineActive flex items-center gap-2">
+              <span>[AIRBIT DIRECT STORE]</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Raw Architectural Logo Viewfinder [Max 420px Width] -->
+        <div class="lg:col-span-5 flex justify-center lg:justify-end">
+          <div class="w-full max-w-[420px] relative bg-carbonElevated border border-hairline p-6 sm:p-8 hud-box">
+            
+            <!-- Viewfinder Header Info -->
+            <div class="flex justify-between items-center text-[10px] font-mono text-zincMuted mb-4 border-b border-hairline pb-2">
+              <div class="flex items-center gap-1.5">
+                <span class="inline-block w-1.5 h-1.5 bg-white"></span>
+                <span class="text-white uppercase font-bold">[OPTIC // 100%]</span>
+              </div>
+              <span>[IDENTITY: R4UL_THORN_CORE]</span>
+              <button id="contrastToggleBtn" onclick="toggleLogoContrast()" class="text-bone hover:text-white underline uppercase">
+                [INVERTED]
+              </button>
+            </div>
+
+            <!-- Viewfinder Central Framed Container with Viewfinder HUD Brackets -->
+            <div class="relative aspect-square border border-hairline/80 bg-black overflow-hidden flex items-center justify-center p-4">
+              
+              <!-- Subtle Camera-Framing Viewfinder HUD Brackets -->
+              <div class="absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
+                <!-- Center Target Cross -->
+                <div class="w-8 h-8 relative flex items-center justify-center">
+                  <div class="absolute w-full h-[1px] bg-white/30"></div>
+                  <div class="absolute h-full w-[1px] bg-white/30"></div>
+                  <div class="w-3 h-3 border border-white/40"></div>
+                </div>
+                <!-- Corner Grid Ticks -->
+                <div class="absolute top-2 left-2 text-[9px] font-mono text-white/50">[+]</div>
+                <div class="absolute top-2 right-2 text-[9px] font-mono text-white/50">[+]</div>
+                <div class="absolute bottom-2 left-2 text-[9px] font-mono text-white/50">[+]</div>
+                <div class="absolute bottom-2 right-2 text-[9px] font-mono text-white/50">[+]</div>
+              </div>
+
+              <!-- Viewfinder Corner Framing Brackets -->
+              <div class="hud-corners z-10"></div>
+
+              <!-- Official Hand-Drawn Thorn-Tree Logo Asset -->
+              <img id="heroLogoImg" src="logo.png" alt="PRODBYR4UL Hand-drawn Thorn Tree Logo" class="w-full h-full object-contain logo-inverted select-none relative z-0 transition-all duration-500 hover:scale-105">
+            </div>
+
+            <!-- Viewfinder Bottom Coordinates Footer -->
+            <div class="flex justify-between items-center text-[10px] font-mono text-zincMuted mt-4 border-t border-hairline pt-2">
+              <span>[COORD: 44.4268° N, 26.1025° E]</span>
+              <span class="text-white font-bold">[BRAND: CERTIFIED]</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 01: BEAT VAULT & AIRBIT STORE INTEGRATION -->
+    <section id="beats" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-b border-hairline">
+      
+      <!-- Section Title Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-hairline gap-4">
+        <div>
+          <div class="text-xs font-mono text-zincMuted uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="text-white font-bold">[01]</span>
+            <span>// AUDIO HARDWARE RACK & LICENSING</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-display uppercase tracking-tight text-white">
+            BEAT VAULT
+          </h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-xs font-mono text-zincMuted text-right">
+            <span>OFFICIAL STORE PLATFORM:</span><br>
+            <span class="text-white font-bold">[AIRBIT VERIFIED // INSTANT LEASING]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions & Audio Rack Header -->
+      <div class="bg-carbonElevated border border-hairline p-4 mb-6 flex flex-wrap items-center justify-between text-xs font-mono gap-4">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 bg-white"></span>
+          <span class="text-white uppercase font-bold">[RACK ARCHITECTURE: 5 FEATURED INSTRUMENTALS]</span>
+          <span class="text-zincDark">//</span>
+          <span class="text-zincMuted">COMPATIBILITY: WAV / STEMS / EXCLUSIVE</span>
+        </div>
+        <div class="flex items-center gap-2 text-zincMuted">
+          <span>MONITORING: 320KBPS PREVIEW</span>
+        </div>
+      </div>
+
+      <!-- Beat Rack Items -->
+      <div class="space-y-3">
+        
+        <!-- Beat 01 -->
+        <div class="bg-surface border border-hairline hover:border-hairlineActive transition-all p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="font-mono text-sm font-bold text-zincMuted group-hover:text-white transition-colors w-8">
+              01
+            </div>
+            <!-- Interactive Visual Preview Icon -->
+            <button onclick="openVideoModal('NvXVdtMlN6A', '[FREE] HARD KEN CARSON TYPE BEAT', '[148 BPM] // [F MINOR]')" class="w-12 h-12 bg-black border border-hairline hover:border-white transition-all flex items-center justify-center flex-shrink-0 group/play relative" title="Play Preview">
+              <span class="text-white text-xs group-hover/play:scale-125 transition-transform">▶</span>
+            </button>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono text-black bg-white px-1.5 py-0.5 font-bold">[PROD BY PRODBYR4UL]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[148 BPM]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[F MINOR]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[KEN CARSON STYLE]</span>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold font-mono text-white group-hover:text-white transition-colors">
+                [FREE] HARD KEN CARSON TYPE BEAT
+              </h3>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-3 self-end md:self-center font-mono text-xs">
+            <button onclick="openVideoModal('NvXVdtMlN6A', '[FREE] HARD KEN CARSON TYPE BEAT', '[148 BPM] // [F MINOR]')" class="px-4 py-2 border border-hairline hover:border-white text-zincMuted hover:text-white brutalist-btn transition-all">
+              [PREVIEW]
+            </button>
+            <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-white text-black font-bold hover:bg-bone transition-all border border-white flex items-center gap-1.5">
+              <span>[BUY / LEASE VIA AIRBIT]</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Beat 02 -->
+        <div class="bg-surface border border-hairline hover:border-hairlineActive transition-all p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="font-mono text-sm font-bold text-zincMuted group-hover:text-white transition-colors w-8">
+              02
+            </div>
+            <button onclick="openVideoModal('_pUjsKX9NxI', '[FREE] IAN SLAYER 2 TYPE BEAT \'MACELAR\'', '[142 BPM] // [C# MINOR]')" class="w-12 h-12 bg-black border border-hairline hover:border-white transition-all flex items-center justify-center flex-shrink-0 group/play relative" title="Play Preview">
+              <span class="text-white text-xs group-hover/play:scale-125 transition-transform">▶</span>
+            </button>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono text-black bg-white px-1.5 py-0.5 font-bold">[PROD BY PRODBYR4UL]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[142 BPM]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[C# MINOR]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[SLAYER 2 SYNTHS]</span>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold font-mono text-white group-hover:text-white transition-colors">
+                [FREE] IAN SLAYER 2 TYPE BEAT "MACELAR"
+              </h3>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 self-end md:self-center font-mono text-xs">
+            <button onclick="openVideoModal('_pUjsKX9NxI', '[FREE] IAN SLAYER 2 TYPE BEAT \'MACELAR\'', '[142 BPM] // [C# MINOR]')" class="px-4 py-2 border border-hairline hover:border-white text-zincMuted hover:text-white brutalist-btn transition-all">
+              [PREVIEW]
+            </button>
+            <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-white text-black font-bold hover:bg-bone transition-all border border-white flex items-center gap-1.5">
+              <span>[BUY / LEASE VIA AIRBIT]</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Beat 03 -->
+        <div class="bg-surface border border-hairline hover:border-hairlineActive transition-all p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="font-mono text-sm font-bold text-zincMuted group-hover:text-white transition-colors w-8">
+              03
+            </div>
+            <button onclick="openVideoModal('Wj3Xh3reD8I', '[FREE] PLAYBOI CARTI TYPE BEAT FR', '[150 BPM] // [D MINOR]')" class="w-12 h-12 bg-black border border-hairline hover:border-white transition-all flex items-center justify-center flex-shrink-0 group/play relative" title="Play Preview">
+              <span class="text-white text-xs group-hover/play:scale-125 transition-transform">▶</span>
+            </button>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono text-black bg-white px-1.5 py-0.5 font-bold">[PROD BY PRODBYR4UL]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[150 BPM]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[D MINOR]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[RAW 808 DISTORTION]</span>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold font-mono text-white group-hover:text-white transition-colors">
+                [FREE] CARTI TYPE BEAT FR
+              </h3>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 self-end md:self-center font-mono text-xs">
+            <button onclick="openVideoModal('Wj3Xh3reD8I', '[FREE] PLAYBOI CARTI TYPE BEAT FR', '[150 BPM] // [D MINOR]')" class="px-4 py-2 border border-hairline hover:border-white text-zincMuted hover:text-white brutalist-btn transition-all">
+              [PREVIEW]
+            </button>
+            <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-white text-black font-bold hover:bg-bone transition-all border border-white flex items-center gap-1.5">
+              <span>[BUY / LEASE VIA AIRBIT]</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Beat 04 -->
+        <div class="bg-surface border border-hairline hover:border-hairlineActive transition-all p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="font-mono text-sm font-bold text-zincMuted group-hover:text-white transition-colors w-8">
+              04
+            </div>
+            <button onclick="openVideoModal('E69x2DMXlZ4', '[FREE] IAN X GLOCKAVELI AGRESSIVE TYPE BEAT \'GOATS\'', '[140 BPM] // [G# MINOR]')" class="w-12 h-12 bg-black border border-hairline hover:border-white transition-all flex items-center justify-center flex-shrink-0 group/play relative" title="Play Preview">
+              <span class="text-white text-xs group-hover/play:scale-125 transition-transform">▶</span>
+            </button>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono text-black bg-white px-1.5 py-0.5 font-bold">[PROD BY PRODBYR4UL]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[140 BPM]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[G# MINOR]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[AGRESSIVE TRAP]</span>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold font-mono text-white group-hover:text-white transition-colors">
+                [FREE] IAN X GLOCKAVELI AGRESSIVE TYPE BEAT "GOATS"
+              </h3>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 self-end md:self-center font-mono text-xs">
+            <button onclick="openVideoModal('E69x2DMXlZ4', '[FREE] IAN X GLOCKAVELI AGRESSIVE TYPE BEAT \'GOATS\'', '[140 BPM] // [G# MINOR]')" class="px-4 py-2 border border-hairline hover:border-white text-zincMuted hover:text-white brutalist-btn transition-all">
+              [PREVIEW]
+            </button>
+            <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-white text-black font-bold hover:bg-bone transition-all border border-white flex items-center gap-1.5">
+              <span>[BUY / LEASE VIA AIRBIT]</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Beat 05 -->
+        <div class="bg-surface border border-hairline hover:border-hairlineActive transition-all p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="font-mono text-sm font-bold text-zincMuted group-hover:text-white transition-colors w-8">
+              05
+            </div>
+            <button onclick="openVideoModal('_gZvHtwhzKw', '[FREE] IAN X OSCAR X AEROZEN SLAYER TYPE BEAT \'POTOP\'', '[144 BPM] // [E MINOR]')" class="w-12 h-12 bg-black border border-hairline hover:border-white transition-all flex items-center justify-center flex-shrink-0 group/play relative" title="Play Preview">
+              <span class="text-white text-xs group-hover/play:scale-125 transition-transform">▶</span>
+            </button>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[10px] font-mono text-black bg-white px-1.5 py-0.5 font-bold">[PROD BY PRODBYR4UL]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[144 BPM]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[E MINOR]</span>
+                <span class="text-[10px] font-mono text-zincMuted border border-hairline px-1.5 py-0.5">[POTOP EDITION]</span>
+              </div>
+              <h3 class="text-base sm:text-lg font-bold font-mono text-white group-hover:text-white transition-colors">
+                [FREE] IAN X OSCAR X AEROZEN SLAYER TYPE BEAT "POTOP"
+              </h3>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 self-end md:self-center font-mono text-xs">
+            <button onclick="openVideoModal('_gZvHtwhzKw', '[FREE] IAN X OSCAR X AEROZEN SLAYER TYPE BEAT \'POTOP\'', '[144 BPM] // [E MINOR]')" class="px-4 py-2 border border-hairline hover:border-white text-zincMuted hover:text-white brutalist-btn transition-all">
+              [PREVIEW]
+            </button>
+            <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-white text-black font-bold hover:bg-bone transition-all border border-white flex items-center gap-1.5">
+              <span>[BUY / LEASE VIA AIRBIT]</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Airbit Complete Beat Vault Banner -->
+      <div class="mt-10 bg-carbonElevated border-2 border-white p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative hud-box">
+        <div class="space-y-2 text-center md:text-left">
+          <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider flex items-center justify-center md:justify-start gap-2">
+            <span class="w-1.5 h-1.5 bg-white"></span>
+            <span>CENTRAL LICENSING TERMINAL // COMPLETE CATALOG</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black font-display uppercase tracking-tight text-white">
+            LOOKING FOR EXCLUSIVES OR CUSTOM COMMISSIONS?
+          </h3>
+          <p class="text-xs font-mono text-zincMuted max-w-xl">
+            Access the official Airbit storefront to purchase instant MP3, WAV, trackout stems, and unlimited commercial licenses directly with automated contract delivery.
+          </p>
+        </div>
+
+        <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-8 py-4 bg-white text-black font-mono font-black text-sm uppercase tracking-wider hover:bg-bone transition-all text-center flex-shrink-0 border border-white">
+          [ACCESS COMPLETE BEAT VAULT ON AIRBIT ↗]
+        </a>
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 02: VISUALIZER SHOWROOM [ALL 8 OFFICIAL TRACKS] -->
+    <section id="visualizers" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-b border-hairline">
+      
+      <!-- Section Title Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-hairline gap-4">
+        <div>
+          <div class="text-xs font-mono text-zincMuted uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="text-white font-bold">[02]</span>
+            <span>// KINETIC MOTION & DIRECTED VISUALS</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-display uppercase tracking-tight text-white">
+            VISUALIZER SHOWROOM
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-zincMuted text-right">
+          <span>CATALOG: 8 DIRECTED RELEASES</span><br>
+          <span class="text-white font-bold">[4K UHD // 60 FPS // KINETIC FX]</span>
+        </div>
+      </div>
+
+      <!-- Video Grid [Responsive 2 to 4 Columns] -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Video 01 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <!-- 16:9 Thumbnail Container with Viewfinder HUD -->
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('7NO9El5AegQ', '[FREE] IAN TYPE BEAT \'DARK VOODOO\'', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/7NO9El5AegQ/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/7NO9El5AegQ/hqdefault.jpg';" alt="Dark Voodoo Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <!-- HUD Viewfinder Overlay -->
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 01]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <!-- Play Action Hover Backdrop -->
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+
+          <!-- Video Metadata Card -->
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                [FREE] IAN TYPE BEAT "DARK VOODOO"
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V01]</span>
+              <button onclick="openVideoModal('7NO9El5AegQ', '[FREE] IAN TYPE BEAT \'DARK VOODOO\'', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 02 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('Bh4CPPyCeQ8', '[FREE] AEROZEN TYPE BEAT', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/Bh4CPPyCeQ8/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/Bh4CPPyCeQ8/hqdefault.jpg';" alt="Aerozen Type Beat Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 02]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                [FREE] AEROZEN TYPE BEAT
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V02]</span>
+              <button onclick="openVideoModal('Bh4CPPyCeQ8', '[FREE] AEROZEN TYPE BEAT', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 03 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('LKvG5YgYAfU', '[FREE] AGRESSIVE TYPE BEAT \'PAUZA\'', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/LKvG5YgYAfU/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/LKvG5YgYAfU/hqdefault.jpg';" alt="Pauza Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 03]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                [FREE] AGRESSIVE TYPE BEAT "PAUZA"
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V03]</span>
+              <button onclick="openVideoModal('LKvG5YgYAfU', '[FREE] AGRESSIVE TYPE BEAT \'PAUZA\'', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 04 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('OqKizt6ZN_8', '[FREE] IAN TYPE BEAT \'NEVER RECOVER\'', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/OqKizt6ZN_8/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/OqKizt6ZN_8/hqdefault.jpg';" alt="Never Recover Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 04]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                [FREE] IAN TYPE BEAT "NEVER RECOVER"
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V04]</span>
+              <button onclick="openVideoModal('OqKizt6ZN_8', '[FREE] IAN TYPE BEAT \'NEVER RECOVER\'', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 05 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('Isyt07TZsTM', '[FREE] IAN SLAYER 2 TYPE BEAT HARD', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/Isyt07TZsTM/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/Isyt07TZsTM/hqdefault.jpg';" alt="Ian Slayer 2 Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 05]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                [FREE] IAN SLAYER 2 TYPE BEAT HARD
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V05]</span>
+              <button onclick="openVideoModal('Isyt07TZsTM', '[FREE] IAN SLAYER 2 TYPE BEAT HARD', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 06 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('CNo2RcH2ykE', '[FREE] IAN VOODOO TYPE BEAT HARD', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/CNo2RcH2ykE/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/CNo2RcH2ykE/hqdefault.jpg';" alt="Ian Voodoo Type Beat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 06]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                [FREE] IAN VOODOO TYPE BEAT HARD
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V06]</span>
+              <button onclick="openVideoModal('CNo2RcH2ykE', '[FREE] IAN VOODOO TYPE BEAT HARD', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 07 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('aXkaWC877f8', 'GZS NOAPTEA MOTION VISUALIZER', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/aXkaWC877f8/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/aXkaWC877f8/hqdefault.jpg';" alt="GZS Noaptea Motion Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 07]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                GZS NOAPTEA MOTION VISUALIZER
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V07]</span>
+              <button onclick="openVideoModal('aXkaWC877f8', 'GZS NOAPTEA MOTION VISUALIZER', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 08 -->
+        <div class="bg-carbonElevated border border-hairline hover:border-hairlineActive transition-all flex flex-col group relative">
+          <div class="relative aspect-video bg-black overflow-hidden cursor-pointer" onclick="openVideoModal('oxuz8IlXUlA', 'DZK POZEZ OFFICIAL VISUALIZER 1080P', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')">
+            <img src="https://img.youtube.com/vi/oxuz8IlXUlA/maxresdefault.jpg" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/oxuz8IlXUlA/hqdefault.jpg';" alt="DZK POZEZ Official Visualizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-110">
+            <div class="vf-hud"></div>
+            <div class="hud-corners"></div>
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [REC // 08]
+            </div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-white bg-black/80 px-1.5 py-0.5 border border-hairline">
+              [4K // 60FPS]
+            </div>
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider">
+                [WATCH 4K]
+              </span>
+            </div>
+          </div>
+          <div class="p-4 flex flex-col flex-grow justify-between border-t border-hairline">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-[9px] font-mono">
+                <span class="text-black bg-white px-1.5 py-0.5 font-bold">[VISUALS BY PRODBYR4UL]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[4K // 60FPS]</span>
+                <span class="text-zincMuted border border-hairline px-1.5 py-0.5">[OFFICIAL RELEASE]</span>
+              </div>
+              <h3 class="text-sm font-bold font-mono text-white group-hover:text-bone line-clamp-2">
+                DZK POZEZ OFFICIAL VISUALIZER
+              </h3>
+            </div>
+            <div class="pt-3 mt-3 border-t border-hairline flex items-center justify-between text-[11px] font-mono">
+              <span class="text-zincMuted">[SYS // V08]</span>
+              <button onclick="openVideoModal('oxuz8IlXUlA', 'DZK POZEZ OFFICIAL VISUALIZER 1080P', '[VISUALS BY PRODBYR4UL] // [4K // 60FPS]')" class="text-white hover:underline uppercase font-bold">
+                [PLAY VIDEO ↗]
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- YouTube Channel Link -->
+      <div class="mt-8 text-center">
+        <a href="https://www.youtube.com/@raul808fr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 border border-hairline hover:border-white text-xs font-mono text-zincMuted hover:text-white transition-all uppercase">
+          <span>[VIEW FULL ARCHIVE ON YOUTUBE: @RAUL808FR]</span>
+          <span>↗</span>
+        </a>
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 03: MIX & MASTER ENGINEERING MATRIX -->
+    <section id="engineering" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-b border-hairline">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-hairline gap-4">
+        <div>
+          <div class="text-xs font-mono text-zincMuted uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="text-white font-bold">[03]</span>
+            <span>// CLINICAL DSP & ACOUSTIC STANDARDS</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-display uppercase tracking-tight text-white">
+            MIX & MASTER ENGINEERING MATRIX
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-zincMuted text-right">
+          <span>TARGET PLATFORMS: SPOTIFY // APPLE // CLUB SYSTEMS</span><br>
+          <span class="text-white font-bold">[MAXIMAL PUNCH // TRANSPARENT TRANSIENTS]</span>
+        </div>
+      </div>
+
+      <!-- Technical Grid: 4 Core Parameters -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        
+        <!-- Parameter 01: Loudness -->
+        <div class="bg-carbonElevated border border-hairline p-6 relative hud-box flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-2 border-b border-hairline pb-2 flex justify-between">
+              <span>[TARGET // 01]</span>
+              <span>[DYNAMIC CEILING]</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              [LOUDNESS: -8 TO -6 LUFS INTEGRATED]
+            </div>
+            <p class="text-xs font-mono text-zincMuted leading-relaxed">
+              Engineered specifically for underground trap and club subwoofers. Extreme perceived volume and body while strictly preserving the initial snare crack and kick transient.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-hairline text-[10px] font-mono text-white flex items-center justify-between">
+            <span>METERING: ITU-R BS.1770</span>
+            <span class="text-zincMuted">[OPTIMIZED]</span>
+          </div>
+        </div>
+
+        <!-- Parameter 02: Headroom -->
+        <div class="bg-carbonElevated border border-hairline p-6 relative hud-box flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-2 border-b border-hairline pb-2 flex justify-between">
+              <span>[TARGET // 02]</span>
+              <span>[PEAK TOLERANCE]</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              [HEADROOM: -0.1 dB TRUE PEAK CEILING]
+            </div>
+            <p class="text-xs font-mono text-zincMuted leading-relaxed">
+              Oversampled inter-sample peak detection eliminates codec distortion across AAC, MP3, and lossy streaming conversion algorithms. Zero unintended digital clipping.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-hairline text-[10px] font-mono text-white flex items-center justify-between">
+            <span>ISP CONTROL: 8X OVERSAMPLED</span>
+            <span class="text-zincMuted">[GUARDED]</span>
+          </div>
+        </div>
+
+        <!-- Parameter 03: Low End -->
+        <div class="bg-carbonElevated border border-hairline p-6 relative hud-box flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-2 border-b border-hairline pb-2 flex justify-between">
+              <span>[TARGET // 03]</span>
+              <span>[SUB OCTAVE]</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              [LOW END: PHASE-ALIGNED 808 SUB CONTROL]
+            </div>
+            <p class="text-xs font-mono text-zincMuted leading-relaxed">
+              Sample-accurate phase alignment between kick punch and elongated 808 glide notes. Strict mono-collapse below 120Hz guarantees zero destructive phase cancellation.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-hairline text-[10px] font-mono text-white flex items-center justify-between">
+            <span>MONO BOUNDARY: &lt; 120 HZ</span>
+            <span class="text-zincMuted">[ALIGNED]</span>
+          </div>
+        </div>
+
+        <!-- Parameter 04: Saturation & EQ -->
+        <div class="bg-carbonElevated border border-hairline p-6 relative hud-box flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-2 border-b border-hairline pb-2 flex justify-between">
+              <span>[TARGET // 04]</span>
+              <span>[COLOR & TEXTURE]</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              [PROCESSING: ANALOG SATURATION // SURGICAL HARMONIC EQ]
+            </div>
+            <p class="text-xs font-mono text-zincMuted leading-relaxed">
+              Even- and odd-order tube harmonics infuse vocal warmth and razor 808 bite that translates effortlessly from cellphone speakers to festival PA systems.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-hairline text-[10px] font-mono text-white flex items-center justify-between">
+            <span>HARMONIC DRIVE: DISCRETE TUBE</span>
+            <span class="text-zincMuted">[TEXTURED]</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stem Prep & Submit Matrix -->
+      <div class="bg-surface border border-hairline p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2">
+          <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-white"></span>
+            <span>COMMISSION PROTOCOL // STEM REQUIREMENTS</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-bold font-mono text-white">
+            READY TO LEVEL UP YOUR TRACK DYNAMICS?
+          </h3>
+          <p class="text-xs font-mono text-zincMuted max-w-2xl">
+            Accepting 24-bit WAV stem submissions for vocal mixing, stereo stem mastering, and full beat mixdowns. Turnaround time: 24 to 48 hours with 2 revision cycles included.
+          </p>
+        </div>
+
+        <a href="#stemProtocol" onclick="revealStemProtocol()" class="w-full md:w-auto px-8 py-4 bg-white text-black font-mono font-black text-xs uppercase tracking-wider hover:bg-bone transition-all text-center flex-shrink-0 border border-white">
+          [SUBMIT STEMS FOR MIXING ↓]
+        </a>
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 04: TRANSMISSION & FOOTER -->
+    <section id="transmission" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24">
+      
+      <!-- Section Title Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-hairline gap-4">
+        <div>
+          <div class="text-xs font-mono text-zincMuted uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="text-white font-bold">[04]</span>
+            <span>// COMMISSIONS, INQUIRIES & DIRECT DISPATCH</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-display uppercase tracking-tight text-white">
+            TRANSMISSION
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-zincMuted text-right">
+          <span>RESPONSE WINDOW: &lt; 12 HOURS</span><br>
+          <span class="text-white font-bold">[DIRECT COMMUNICATION CHANNELS]</span>
+        </div>
+      </div>
+
+      <!-- STEM INTAKE PROTOCOL DRAWER -->
+      <div id="stemProtocol" class="mb-12 bg-carbonElevated border border-white p-6 sm:p-8 hud-box">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-hairline text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-white"></span>
+            <span class="text-white font-bold uppercase">[STEM SUBMISSION PROTOCOL // PREP CHECKLIST]</span>
+          </div>
+          <span class="text-zincMuted">[DISPATCH READY]</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-mono text-zincMuted mb-6">
+          <div class="border border-hairline p-4 space-y-2">
+            <div class="text-white font-bold">[STEP 01: AUDIO SPECS]</div>
+            <p>Export stems as dry 24-bit / 44.1kHz or 48kHz WAV files with -6dB True Peak headroom. Ensure zero bus limiting.</p>
+          </div>
+          <div class="border border-hairline p-4 space-y-2">
+            <div class="text-white font-bold">[STEP 02: STEM LABELS]</div>
+            <p>Label all tracks clearly: [KICK], [808_SUB], [SNARE], [HIHATS], [SYNTH_MAIN], [VOCAL_LEAD], [VOCAL_ADLIBS].</p>
+          </div>
+          <div class="border border-hairline p-4 space-y-2">
+            <div class="text-white font-bold">[STEP 03: DISPATCH]</div>
+            <p>Upload archive via WeTransfer or Google Drive, then copy Discord tag below and dispatch link to prodbyr4ul.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-4 text-xs font-mono pt-3 border-t border-hairline">
+          <span class="text-zincMuted">COMMISSION STATUS: CURRENTLY ACCEPTING COMMERCIAL COMMISSIONS</span>
+          <button onclick="copyDiscordHandle()" class="px-4 py-2 bg-white text-black font-bold uppercase hover:bg-bone transition-all">
+            [COPY DISCORD TO DISPATCH STEMS]
+          </button>
+        </div>
+      </div>
+
+      <!-- Contact Matrix Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        
+        <!-- Discord Card with One-Click Interactive Copy -->
+        <div class="bg-carbonElevated border border-hairline p-6 flex flex-col justify-between hud-box">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-3 flex items-center justify-between border-b border-hairline pb-2">
+              <span>[DIRECT CHAT // DISCORD]</span>
+              <span class="text-white">● PRIORITY</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              prodbyr4ul
+            </div>
+            <p class="text-xs font-mono text-zincMuted mb-6">
+              Primary instant communication channel for beat inquiries, custom productions, and vocal stems.
+            </p>
+          </div>
+          
+          <button id="discordCopyBtn" onclick="copyDiscordHandle()" class="w-full py-3 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-bone transition-all border border-white flex items-center justify-center gap-2">
+            <span id="discordBtnText">[COPY DISCORD TAG]</span>
+          </button>
+        </div>
+
+        <!-- Instagram Card -->
+        <div class="bg-carbonElevated border border-hairline p-6 flex flex-col justify-between hud-box">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-3 flex items-center justify-between border-b border-hairline pb-2">
+              <span>[INSTAGRAM // SOCIAL]</span>
+              <span class="text-zincMuted">@PRODBYR4UL</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              @prodbyr4ul
+            </div>
+            <p class="text-xs font-mono text-zincMuted mb-6">
+              Behind the scenes studio clips, preview snippets, and direct messages.
+            </p>
+          </div>
+          
+          <a href="https://instagram.com/prodbyr4ul" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-transparent text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all border border-hairline hover:border-white text-center flex items-center justify-center gap-2">
+            <span>[OPEN INSTAGRAM]</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <!-- Airbit Card -->
+        <div class="bg-carbonElevated border border-hairline p-6 flex flex-col justify-between hud-box">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-3 flex items-center justify-between border-b border-hairline pb-2">
+              <span>[AIRBIT STORE // LICENSING]</span>
+              <span class="text-white">AZTTTT</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              airbit.com/aztttt
+            </div>
+            <p class="text-xs font-mono text-zincMuted mb-6">
+              Instant leasing, non-exclusive and exclusive rights, automated stem downloads.
+            </p>
+          </div>
+          
+          <a href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-transparent text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all border border-hairline hover:border-white text-center flex items-center justify-center gap-2">
+            <span>[GO TO AIRBIT STORE]</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <!-- YouTube Card -->
+        <div class="bg-carbonElevated border border-hairline p-6 flex flex-col justify-between hud-box">
+          <div>
+            <div class="text-[10px] font-mono text-zincMuted uppercase tracking-wider mb-3 flex items-center justify-between border-b border-hairline pb-2">
+              <span>[YOUTUBE // CATALOG]</span>
+              <span class="text-zincMuted">@RAUL808FR</span>
+            </div>
+            <div class="text-lg font-black font-mono text-white mb-2">
+              @raul808fr
+            </div>
+            <p class="text-xs font-mono text-zincMuted mb-6">
+              Subscribe for weekly type beats, free downloads, and 4K kinetic visualizer premieres.
+            </p>
+          </div>
+          
+          <a href="https://www.youtube.com/@raul808fr" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-transparent text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all border border-hairline hover:border-white text-center flex items-center justify-center gap-2">
+            <span>[OPEN YOUTUBE]</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Brutalist Colophon & System Footer -->
+      <div class="border-t border-hairline pt-8 pb-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[11px] font-mono text-zincMuted">
+        <div class="flex items-center gap-3">
+          <div class="circular-brandmark w-6 h-6 border border-hairline flex items-center justify-center bg-black overflow-hidden flex-shrink-0">
+            <img src="logo.png" alt="R4UL Mark" class="w-full h-full object-cover">
+          </div>
+          <span class="text-white font-bold">[PRODBYR4UL ARCHIVE]</span>
+          <span class="text-zincDark">//</span>
+          <span>ALL RIGHTS RESERVED // 2026</span>
+        </div>
+
+        <div class="text-center md:text-right text-bone">
+          [ENGINEERED BY PRODBYR4UL // HOSTED 100% FREE VIA GITHUB PAGES]
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- RESPONSIVE EMBEDDED MODAL PLAYER [YOUTUBE NOCOOKIE INTEGRATION] -->
+  <div id="videoModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    
+    <div class="relative w-full max-w-4xl bg-carbonElevated border-2 border-white p-4 sm:p-6 hud-box shadow-2xl flex flex-col">
+      
+      <!-- Modal Top Bar -->
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-hairline text-xs font-mono">
+        <div class="flex items-center gap-2 overflow-hidden pr-2">
+          <span class="inline-block w-2 h-2 bg-white"></span>
+          <span id="modalTitle" class="text-white font-bold truncate">[PLAYBACK IN PROGRESS]</span>
+          <span id="modalMeta" class="text-zincMuted hidden sm:inline truncate">[AUDIO/VIDEO STREAM]</span>
+        </div>
+        <button onclick="closeVideoModal()" class="px-3 py-1 bg-white text-black font-mono font-bold hover:bg-bone transition-colors flex-shrink-0 text-xs">
+          [ESC // CLOSE]
+        </button>
+      </div>
+
+      <!-- 16:9 Video Embed Frame with HUD Brackets -->
+      <div class="relative aspect-video bg-black border border-hairline overflow-hidden w-full">
+        <iframe id="modalIframe" class="w-full h-full" src="" title="Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+
+      <!-- Modal Bottom Information -->
+      <div class="flex flex-wrap items-center justify-between text-[10px] font-mono text-zincMuted pt-3 mt-3 border-t border-hairline gap-2">
+        <div class="flex items-center gap-2">
+          <span>SOURCE: YOUTUBE DIRECT</span>
+          <span class="text-zincDark">//</span>
+          <span class="text-white font-bold">[PROD BY PRODBYR4UL]</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a id="modalAirbitLink" href="https://airbit.com/aztttt" target="_blank" rel="noopener noreferrer" class="text-white hover:underline font-bold">
+            [LICENSE ON AIRBIT ↗]
+          </a>
+          <span class="text-zincDark">//</span>
+          <button onclick="closeVideoModal()" class="text-zincMuted hover:text-white uppercase">
+            [CLOSE MODAL]
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // 1. One-Click Copy Discord Tag with Visual Confirmation
+    function copyDiscordHandle() {
+      const handle = 'prodbyr4ul';
+      const btnText = document.getElementById('discordBtnText');
+      const btn = document.getElementById('discordCopyBtn');
+      
+      const setSuccess = () => {
+        btnText.textContent = '[COPIED TO CLIPBOARD]';
+        btn.classList.add('bg-zinc-200');
+        setTimeout(() => {
+          btnText.textContent = '[COPY DISCORD TAG]';
+          btn.classList.remove('bg-zinc-200');
+        }, 2500);
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(handle).then(setSuccess).catch(() => {
+          fallbackCopyText(handle, setSuccess);
+        });
+      } else {
+        fallbackCopyText(handle, setSuccess);
+      }
+    }
+
+    function fallbackCopyText(text, callback) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        callback();
+      } catch (err) {
+        alert('[DISCORD TAG: prodbyr4ul]');
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // 2. Video Modal Controller
+    const videoModal = document.getElementById('videoModal');
+    const modalIframe = document.getElementById('modalIframe');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+
+    function openVideoModal(youtubeId, title, meta) {
+      modalTitle.textContent = title || '[PLAYBACK IN PROGRESS]';
+      modalMeta.textContent = meta || '[OFFICIAL RELEASE]';
+      modalIframe.src = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?autoplay=1&rel=0';
+      videoModal.classList.remove('hidden');
+      videoModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      modalIframe.src = '';
+      videoModal.classList.add('hidden');
+      videoModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // Close on backdrop click
+    videoModal.addEventListener('click', function(e) {
+      if (e.target === videoModal) {
+        closeVideoModal();
+      }
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+        closeVideoModal();
+      }
+    });
+
+    // 3. Mobile Navigation Drawer Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', function() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
+          mobileMenu.classList.remove('hidden');
+          mobileMenuToggle.textContent = '[CLOSE]';
+        } else {
+          mobileMenu.classList.add('hidden');
+          mobileMenuToggle.textContent = '[MENU]';
+        }
+      });
+
+      // Close menu on navigation click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuToggle.textContent = '[MENU]';
+        });
+      });
+    }
+
+    // 4. Hero Logo Contrast Inversion Toggle
+    function toggleLogoContrast() {
+      const img = document.getElementById('heroLogoImg');
+      const btn = document.getElementById('contrastToggleBtn');
+      if (img.classList.contains('logo-inverted')) {
+        img.classList.remove('logo-inverted');
+        img.classList.add('logo-raw');
+        btn.textContent = '[RAW BLACK]';
+      } else {
+        img.classList.remove('logo-raw');
+        img.classList.add('logo-inverted');
+        btn.textContent = '[INVERTED]';
+      }
+    }
+
+    // 5. Reveal Stem Protocol Helper
+    function revealStemProtocol() {
+      const stemBox = document.getElementById('stemProtocol');
+      if (stemBox) {
+        stemBox.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // 6. Source Protection & Anti-Inspect Guards
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      // Block F12 DevTools
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Block Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+        return false;
+      }
+      // Block Ctrl+U (View Source)
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault();
+        return false;
+      }
+      // Block Ctrl+S (Save Page)
+      if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
+
+</body>
+</html>
